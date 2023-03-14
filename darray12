@@ -1,0 +1,62 @@
+Поменять максимальный элемент матрицы B размерности N x M с его первым элементом, а минимальный - с последним. 
+В матрице только один максимальный и один минимальный элемент
+
+#include <windows.h>
+#pragma hdrstop
+#include "pt4.h"
+using namespace std;
+
+
+int ** CreateMatrix(int M, int N)
+{
+	int **A;
+	A = new int *[M];
+	for (int i = 0; i < M; i++)
+		A[i] = new int[N];
+	return A;
+}
+
+void Vvod(int **A, int M, int N)
+{
+	for (int i = 0; i < M; i++)
+		for (int j = 0; j < N; j++)
+			pt >> A[i][j];
+}
+
+void Vivod(int **A, int M, int N)
+{
+
+	for (int i = 0; i < M; i++)
+		for (int j = 0; j < N; j++)
+			pt << A[i][j];
+}
+
+
+
+void Solve()
+{
+    Task("DArray12");
+	int M, N;
+	pt >> N >> M;
+	int **A;
+	A = CreateMatrix(N, M);
+	Vvod(A, N, M);
+	int i_min = 0, j_min = 0, i_max = 0, j_max = 0;
+	for (int i = 0; i < N; i++)
+		for (int j = 0; j < M; j++)
+		{
+			if (A[i][j] > A[i_max][j_max])
+			{
+				i_max = i;
+				j_max = j;
+			}
+			if (A[i][j] < A[i_min][j_min])
+			{
+				i_min = i;
+				j_min = j;
+			}
+		}
+	swap(A[i_max][j_max], A[0][0]);
+	swap(A[i_min][j_min], A[N-1][M-1]);
+	Vivod(A, N, M);
+}
