@@ -1,0 +1,36 @@
+Задана матрица A размерности n x n. Зеркально отразить ее относительно главной диагонали
+
+#include <windows.h>
+#pragma hdrstop
+#include "pt4.h"
+using namespace std;
+
+void Solve()
+{
+    Task("DArray9");
+	int n;
+	pt >> n;
+	int **a;
+	a = new int*[n];
+	for (int i(0); i < n; i++)
+		for (int j(0); j < n; j++)
+			a[i] = new int[n];
+	for (int i(0); i < n; i++)
+		for (int j(0); j < n; j++)
+			pt >> a[i][j];
+	
+	for (int i(0); i<n; i++)
+		for (int j(i + 1); j < n; j++)
+		{
+			int t;
+			t = a[i][j];
+			a[i][j] = a[j][i];
+			a[j][i] = t;
+		}
+	for (int i(0); i < n; i++)
+		for (int j(0); j < n; j++)
+			pt << a[i][j];
+	for (int i(0); i < n; i++)
+		delete[]a[i];
+	delete[]a;
+}
